@@ -18,6 +18,7 @@ def log(*m):
     print(" ".join(map(str, m)))
 
 
+
 def log_exit(*m):
     log(red("ERROR:"), *m)
     exit(1)
@@ -76,3 +77,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

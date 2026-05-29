@@ -1,6 +1,7 @@
 import numpy as np
 
 def randomization(n):
+
     """
     Arg:
       n - an integer
@@ -8,7 +9,14 @@ def randomization(n):
       A - a randomly-generated nx1 Numpy array.
     """
     #Your code here
-    raise NotImplementedError
+    A=np.random.rand(n,1)
+    
+    return A
+
+if __name__ == "__main__":
+    print(randomization(5)) #testing this one out
+    # print(operations(3, 4))    # not ready yet
+
 
 def operations(h, w):
     """
