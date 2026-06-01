@@ -86,7 +86,9 @@ def vector_function(x, y):
     Make sure vector_function can deal with vector input x,y 
     """
     #Your code here
-    raise NotImplementedError
+    scalar_function_vectorized = np.vectorize(scalar_function)
+    return scalar_function_vectorized(x, y)
+    
 
 
 
@@ -97,5 +99,6 @@ if __name__ == "__main__":
     #print(randomization(5)) done
     #print(operations(2, 2)) done
     #print(norm(np.array([[1], [2]]), np.array([[3], [4]]))) done
-    #print(neural_network(np.array([[1], [2]]), np.array([[3], [4]])))
-    print(scalar_function(4, 3))
+    #print(neural_network(np.array([[1], [2]]), np.array([[3], [4]]))) done
+    #print(scalar_function(4, 3)) done
+    print(vector_function(np.array([[1], [2]]), np.array([[3], [4]])))
