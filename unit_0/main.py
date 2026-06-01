@@ -13,10 +13,6 @@ def randomization(n):
     
     return A
 
-if __name__ == "__main__":
-    print(randomization(5)) #testing this one out
-    # print(operations(3, 4))    # not ready yet
-
 
 def operations(h, w):
     """
@@ -32,7 +28,12 @@ def operations(h, w):
       s - the sum of A and B.
     """
     #Your code here
-    raise NotImplementedError
+
+    A=np.random.rand(h, w)
+    B=np.random.rand(h, w)
+    s=A+B
+    return A, B, s
+
 
 
 def norm(A, B):
@@ -78,3 +79,11 @@ def vector_function(x, y):
     #Your code here
     raise NotImplementedError
 
+
+
+
+#for functions execution
+
+if __name__ == "__main__":
+    #print(randomization(5)) 
+    print(operations(2, 2))
