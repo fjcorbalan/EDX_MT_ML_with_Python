@@ -75,7 +75,11 @@ def scalar_function(x, y):
     Returns the f(x,y) defined in the problem statement.
     """
     #Your code here
-    raise NotImplementedError
+
+    if x <= y:
+        return x*y
+    else:
+        return x/y
 
 def vector_function(x, y):
     """
@@ -94,3 +98,4 @@ if __name__ == "__main__":
     #print(operations(2, 2)) done
     #print(norm(np.array([[1], [2]]), np.array([[3], [4]]))) done
     #print(neural_network(np.array([[1], [2]]), np.array([[3], [4]])))
+    print(scalar_function(4, 3))
