@@ -48,7 +48,10 @@ def norm(A, B):
       s - the L2 norm of A+B.
     """
     #Your code here
-    raise NotImplementedError
+
+  
+    s = A + B
+    return np.linalg.norm(s)
 
 
 def neural_network(inputs, weights):
@@ -63,7 +66,9 @@ def neural_network(inputs, weights):
        out - a 1 x 1 NumPy array, representing the output of the neural network
     """
     #Your code here
-    raise NotImplementedError
+    
+    output = np.dot(inputs.T, weights)
+    return output
 
 def scalar_function(x, y):
     """
@@ -85,5 +90,7 @@ def vector_function(x, y):
 #for functions execution
 
 if __name__ == "__main__":
-    #print(randomization(5)) 
-    print(operations(2, 2))
+    #print(randomization(5)) done
+    #print(operations(2, 2)) done
+    #print(norm(np.array([[1], [2]]), np.array([[3], [4]]))) done
+    #print(neural_network(np.array([[1], [2]]), np.array([[3], [4]])))
