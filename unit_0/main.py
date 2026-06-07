@@ -101,4 +101,4 @@ if __name__ == "__main__":
     #print(norm(np.array([[1], [2]]), np.array([[3], [4]]))) done
     #print(neural_network(np.array([[1], [2]]), np.array([[3], [4]]))) done
     #print(scalar_function(4, 3)) done
-    print(vector_function(np.array([[1], [2]]), np.array([[3], [4]])))
+    print(vector_function(np.array([[1], [2]]), np.array([[3], [4]]))) 
