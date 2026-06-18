@@ -179,6 +179,22 @@ def average_perceptron(feature_matrix, labels, T):
             (averaged also over T iterations through the feature matrix).
     """
     # Your code here
+    nsamples, nfeatures = feature_matrix.shape
+    theta = np.zeros(nfeatures)
+    theta_0 = 0.0
+
+    theta_sum = np.zeros(nfeatures)
+    theta_0_sum = 0.0
+
+    for t in range(T):
+        for i in get_order(nsamples):
+            theta, theta_0 = perceptron_single_step_update(
+                feature_matrix[i], labels[i], theta, theta_0)
+            theta_sum += theta
+            theta_0_sum += theta_0
+
+    total_updates = T * nsamples
+    return theta_sum / total_updates, theta_0_sum / total_updates
     
 
 
