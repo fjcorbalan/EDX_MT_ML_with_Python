@@ -74,7 +74,7 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
 
     return total_loss / feature_matrix.shape[0]
 
-    #raise NotImplementedError
+    
 
 
 
@@ -139,13 +139,16 @@ def perceptron(feature_matrix, labels, T):
             (found also after T iterations through the feature matrix).
     """
     # Your code here
-    raise NotImplementedError
+    nsamples, nfeatures = feature_matrix.shape
+    theta = np.zeros(nfeatures)
+    theta_0 = 0.0
+
     for t in range(T):
         for i in get_order(nsamples):
-            # Your code here
-            raise NotImplementedError
-    # Your code here
-    raise NotImplementedError
+            theta, theta_0 = perceptron_single_step_update(
+                feature_matrix[i], labels[i], theta, theta_0)
+
+    return theta, theta_0
 
 
 
@@ -176,7 +179,7 @@ def average_perceptron(feature_matrix, labels, T):
             (averaged also over T iterations through the feature matrix).
     """
     # Your code here
-    raise NotImplementedError
+    
 
 
 def pegasos_single_step_update(
