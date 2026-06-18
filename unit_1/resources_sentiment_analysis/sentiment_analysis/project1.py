@@ -68,7 +68,13 @@ def hinge_loss_full(feature_matrix, labels, theta, theta_0):
     """
 
     # Your code here
-    raise NotImplementedError
+    total_loss = 0
+    for i in range(feature_matrix.shape[0]):
+        total_loss += hinge_loss_single(feature_matrix[i], labels[i], theta, theta_0)
+
+    return total_loss / feature_matrix.shape[0]
+
+    #raise NotImplementedError
 
 
 

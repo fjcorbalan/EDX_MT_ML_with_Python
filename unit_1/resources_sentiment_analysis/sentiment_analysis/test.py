@@ -442,8 +442,8 @@ def main():
     log(green("PASS"), "Import project1")
     try:
         #check_get_order()
-        check_hinge_loss_single()
-        #check_hinge_loss_full()
+        #check_hinge_loss_single()
+        check_hinge_loss_full()
         #check_perceptron_single_update()
         #check_perceptron()
         #check_average_perceptron()
