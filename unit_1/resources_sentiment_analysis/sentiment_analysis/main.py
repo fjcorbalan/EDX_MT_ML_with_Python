@@ -133,3 +133,17 @@ sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
 print("Most Explanatory Word Features")
 print(sorted_word_features[:10])
 
+#last exercise 9 Remove Stop Words
+
+#1removing stopwords
+dictionary_no_stop = p1.bag_of_words(train_texts, remove_stopword=True)
+
+#2Rebuilding feature matrices using the new dictionary
+train_bow_features_no_stop = p1.extract_bow_feature_vectors(train_texts, dictionary_no_stop)
+test_bow_features_no_stop = p1.extract_bow_feature_vectors(test_texts, dictionary_no_stop)
+
+#3Training Pegasos with the specified hyperparameters and test
+
+theta_ns, theta_0_ns = p1.pegasos(train_bow_features_no_stop, train_labels, T=25, L=0.01)
+test_accuracy_no_stop = p1.accuracy(p1.classify(test_bow_features_no_stop, theta_ns, theta_0_ns), test_labels)
+print("Test accuracy with stopwords removed:", test_accuracy_no_stop)
