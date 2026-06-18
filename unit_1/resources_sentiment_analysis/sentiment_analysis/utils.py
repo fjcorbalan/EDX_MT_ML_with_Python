@@ -19,6 +19,7 @@ def load_toy_data(path_toy_data):
     labels, xs, ys = np.loadtxt(path_toy_data, delimiter='\t', unpack=True)
     return np.vstack((xs, ys)).T, labels
 
+#loads reviews data
 def load_data(path_data, extras=False):
     """
     Returns a list of dict with keys:

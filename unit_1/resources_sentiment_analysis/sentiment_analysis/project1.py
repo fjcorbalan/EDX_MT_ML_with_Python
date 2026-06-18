@@ -316,9 +316,10 @@ def classify(feature_matrix, theta, theta_0):
         should be considered a positive classification.
     """
     # Your code here
-    raise NotImplementedError
+    predictions = np.dot(feature_matrix, theta) + theta_0
+    return np.where(predictions > 1e-7, 1, -1)
 
-
+#accuracy funcion at the bottom
 def classifier_accuracy(
         classifier,
         train_feature_matrix,
@@ -353,7 +354,18 @@ def classifier_accuracy(
         accuracy of the trained classifier on the validation data.
     """
     # Your code here
-    raise NotImplementedError
+
+    theta, theta_0 = classifier(train_feature_matrix, train_labels, **kwargs)
+
+    train_pred = classify(train_feature_matrix, theta, theta_0)
+    val_pred = classify(val_feature_matrix, theta, theta_0)
+
+    train_accuracy = accuracy(train_pred, train_labels)
+    val_accuracy = accuracy(val_pred, val_labels)
+
+    return train_accuracy, val_accuracy
+
+    
 
 
 
@@ -374,7 +386,7 @@ def extract_words(text):
     return text.lower().split()
 
 
-
+#converting review texts into feature vectors via bag of words
 def bag_of_words(texts, remove_stopword=False):
     """
     NOTE: feel free to change this code as guided by Section 3 (e.g. remove
@@ -424,7 +436,7 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
     return feature_matrix
 
 
-
+#below accuracy used in classifier_accuracy function
 def accuracy(preds, targets):
     """
     Given length-N vectors containing predicted and target labels,
