@@ -107,17 +107,29 @@ utils.plot_tune_results('Pegasos', 'L', Ls, *peg_tune_results_L)
 # against the test dataset. The test data has been provided as
 # test_bow_features and test_labels.
 #-------------------------------------------------------------------------------
+#so this is the proper ml flow: parameter tuning on validation data (above), training best model with these optimal parameters using the whole training set,
+#and report final performance on test data (which the model has never seen in any form, including tuning)
+#And finally at the very bottom we are finding the most explanatory words
 
 # Your code here
+
+#below figures taken from parameter tunning above
+best_T = 25
+best_L = 0.01
+
+
+theta, theta_0 = p1.pegasos(train_bow_features, train_labels, T=best_T, L=best_L)
+test_accuracy = p1.accuracy(p1.classify(test_bow_features, theta, theta_0), test_labels)
+print("Test accuracy:", test_accuracy)
 
 #-------------------------------------------------------------------------------
 # Assign to best_theta, the weights (and not the bias!) learned by your most
 # accurate algorithm with the optimal choice of hyperparameters.
 #-------------------------------------------------------------------------------
 
-# best_theta = None # Your code here
-# wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
-# sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
-# print("Most Explanatory Word Features")
-# print(sorted_word_features[:10])
+best_theta = theta # Your code here this is the only input from my side , below provided
+wordlist   = [word for (idx, word) in sorted(zip(dictionary.values(), dictionary.keys()))]
+sorted_word_features = utils.most_explanatory_word(best_theta, wordlist)
+print("Most Explanatory Word Features")
+print(sorted_word_features[:10])
 
