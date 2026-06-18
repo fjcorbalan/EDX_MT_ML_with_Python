@@ -101,6 +101,17 @@ def perceptron_single_step_update(
         the updated offset parameter `theta_0` as a floating point number
     """
     # Your code here
+    if label * (np.dot(current_theta, feature_vector) + current_theta_0) <= 0:
+        updated_theta = current_theta + label * feature_vector
+        updated_theta_0 = current_theta_0 + label
+    else:
+        updated_theta = current_theta
+        updated_theta_0 = current_theta_0
+
+    return updated_theta, updated_theta_0
+
+
+
     raise NotImplementedError
 
 
