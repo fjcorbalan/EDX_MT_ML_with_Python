@@ -39,7 +39,14 @@ def hinge_loss_single(feature_vector, label, theta, theta_0):
         parameters.
     """
     # Your code here
-    raise NotImplementedError
+    z = label*(np.dot(theta,feature_vector)+theta_0)
+
+    if z >= 1:
+        return 0
+    else:
+        return 1-z
+
+    #raise NotImplementedError
 
 
 
