@@ -450,7 +450,7 @@ def main():
         #check_pegasos_single_update()
         #check_pegasos()
         #check_classify()
-        check_classifier_accuracy()
+        #check_classifier_accuracy()
         #check_bag_of_words()
         #check_extract_bow_feature_vectors()
     except Exception:

@@ -379,7 +379,7 @@ def extract_words(text):
         count as their own words.
     """
     # Your code here
-    raise NotImplementedError
+    
 
     for c in punctuation + digits:
         text = text.replace(c, ' ' + c + ' ')
@@ -399,14 +399,19 @@ def bag_of_words(texts, remove_stopword=False):
         integer `index`.
     """
     # Your code here
-    raise NotImplementedError
     
-    indices_by_word = {}  # maps word to unique index
+    
+    stopword = set()
+    if remove_stopword:
+        with open('stopwords.txt') as f:
+            stopword = set(f.read().splitlines())
+
+    indices_by_word = {}
     for text in texts:
         word_list = extract_words(text)
         for word in word_list:
             if word in indices_by_word: continue
-            if word in stopword: continue
+            if remove_stopword and word in stopword: continue
             indices_by_word[word] = len(indices_by_word)
 
     return indices_by_word
@@ -431,8 +436,8 @@ def extract_bow_feature_vectors(reviews, indices_by_word, binarize=True):
             if word not in indices_by_word: continue
             feature_matrix[i, indices_by_word[word]] += 1
     if binarize:
-        # Your code here
-        raise NotImplementedError
+        # Your code here, ONLY CODED ADDED BY ME:
+        feature_matrix = (feature_matrix > 0).astype(np.float64)
     return feature_matrix
 
 
