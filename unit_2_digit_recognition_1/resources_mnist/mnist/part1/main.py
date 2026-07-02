@@ -50,25 +50,7 @@ train_x, train_y, test_x, test_y = get_MNIST_data()
 
 # TODO: first fill out functions in svm.py, or the functions below will not work
 
-def run_svm_one_vs_rest_on_MNIST():
-    """
-    Trains svm, classifies test data, computes test error on test set
-
-    Returns:
-        Test error for the binary svm
-    """
-    train_x, train_y, test_x, test_y = get_MNIST_data()
-    train_y[train_y != 0] = 1
-    test_y[test_y != 0] = 1
-    pred_test_y = one_vs_rest_svm(train_x, train_y, test_x)
-    test_error = compute_test_error_svm(test_y, pred_test_y)
-    return test_error
-
-
-print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
-
-
-# def run_multiclass_svm_on_MNIST():
+# def run_svm_one_vs_rest_on_MNIST():
 #     """
 #     Trains svm, classifies test data, computes test error on test set
 
@@ -76,12 +58,30 @@ print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
 #         Test error for the binary svm
 #     """
 #     train_x, train_y, test_x, test_y = get_MNIST_data()
-#     pred_test_y = multi_class_svm(train_x, train_y, test_x)
+#     train_y[train_y != 0] = 1
+#     test_y[test_y != 0] = 1
+#     pred_test_y = one_vs_rest_svm(train_x, train_y, test_x)
 #     test_error = compute_test_error_svm(test_y, pred_test_y)
 #     return test_error
 
 
-# #print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
+# print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
+
+
+def run_multiclass_svm_on_MNIST():
+    """
+    Trains svm, classifies test data, computes test error on test set
+
+    Returns:
+        Test error for the binary svm
+    """
+    train_x, train_y, test_x, test_y = get_MNIST_data()
+    pred_test_y = multi_class_svm(train_x, train_y, test_x)
+    test_error = compute_test_error_svm(test_y, pred_test_y)
+    return test_error
+
+
+print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 
 # #######################################################################
 # # 4. Multinomial (Softmax) Regression and Gradient Descent
@@ -204,5 +204,5 @@ print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
 
 
 #fran code to execute specific funcions
-if __name__ == "__main__":
-    print(run_linear_regression_on_MNIST(lambda_factor=0.01))
+# if __name__ == "__main__":
+#     print(run_linear_regression_on_MNIST(lambda_factor=0.01))
