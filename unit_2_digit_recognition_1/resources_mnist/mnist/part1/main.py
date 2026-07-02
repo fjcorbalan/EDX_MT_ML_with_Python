@@ -125,34 +125,35 @@ train_x, train_y, test_x, test_y = get_MNIST_data()
 # #######################################################################
 # # 6. Changing Labels
 # #######################################################################
-def update_y(train_y, test_y):
-    """
-    Changes the old digit labels for the training and test set for the new (mod 3)
-    labels.
 
-    Args:
-        train_y - (n, ) NumPy array containing the labels (a number between 0-9)
-                 for each datapoint in the training set
-        test_y - (n, ) NumPy array containing the labels (a number between 0-9)
-                for each datapoint in the test set
+# def update_y(train_y, test_y):
+#     """
+#     Changes the old digit labels for the training and test set for the new (mod 3)
+#     labels.
 
-    Returns:
-        train_y_mod3 - (n, ) NumPy array containing the new labels (a number between 0-2)
-                     for each datapoint in the training set
-        test_y_mod3 - (n, ) NumPy array containing the new labels (a number between 0-2)
-                    for each datapoint in the test set
-    """
-    #YOUR CODE HERE
-    train_y_mod3 = train_y % 3
-    test_y_mod3 = test_y % 3
+#     Args:
+#         train_y - (n, ) NumPy array containing the labels (a number between 0-9)
+#                  for each datapoint in the training set
+#         test_y - (n, ) NumPy array containing the labels (a number between 0-9)
+#                 for each datapoint in the test set
 
-    print("input:", train_y[:10])
-    print("output:", train_y_mod3[:10])
+#     Returns:
+#         train_y_mod3 - (n, ) NumPy array containing the new labels (a number between 0-2)
+#                      for each datapoint in the training set
+#         test_y_mod3 - (n, ) NumPy array containing the new labels (a number between 0-2)
+#                     for each datapoint in the test set
+#     """
+#     #YOUR CODE HERE
+#     train_y_mod3 = train_y % 3
+#     test_y_mod3 = test_y % 3
+
+#     print("input:", train_y[:10])
+#     print("output:", train_y_mod3[:10])
     
-    return train_y_mod3, test_y_mod3
+#     return train_y_mod3, test_y_mod3
 
-train_x, train_y, test_x, test_y = get_MNIST_data()
-update_y(train_y, test_y)
+# train_x, train_y, test_x, test_y = get_MNIST_data()
+# update_y(train_y, test_y)
 
 
 
@@ -192,28 +193,31 @@ update_y(train_y, test_y)
 # # TODO: First fill out the PCA functions in features.py as the below code depends on them.
 
 
-# n_components = 18
+n_components = 18
 
-# """"
-# ###Correction note:  the following 4 lines have been modified since release.
-# train_x_centered, feature_means = center_data(train_x)
-# pcs = principal_components(train_x_centered)
-# train_pca = project_onto_PC(train_x, pcs, n_components, feature_means)
-# test_pca = project_onto_PC(test_x, pcs, n_components, feature_means)
-# """
 
-# # train_pca (and test_pca) is a representation of our training (and test) data
-# # after projecting each example onto the first 18 principal components.
+###Correction note:  the following 4 lines have been modified since release.
+train_x_centered, feature_means = center_data(train_x)
+pcs = principal_components(train_x_centered)
+train_pca = project_onto_PC(train_x, pcs, n_components, feature_means)
+test_pca = project_onto_PC(test_x, pcs, n_components, feature_means)
+
+
+# train_pca (and test_pca) is a representation of our training (and test) data
+# after projecting each example onto the first 18 principal components.
 
 
 # # TODO: Train your softmax regression model using (train_pca, train_y)
 # #       and evaluate its accuracy on (test_pca, test_y).
 
+theta, cost_function_history = softmax_regression(train_pca, train_y, temp_parameter=1, alpha=0.3, lambda_factor=1.0e-4, k=10, num_iterations=150)
+test_error_pca = compute_test_error(test_pca, test_y, theta, 1)
+print("Error rate for 18-dimensional PCA features =", test_error_pca)
 
 # # TODO: Use the plot_PC function in features.py to produce scatterplot
 # #       of the first 100 MNIST images, as represented in the space spanned by the
 # #       first 2 principal components found above.
-# plot_PC(train_x[range(000, 100), ], pcs, train_y[range(000, 100)], feature_means)#feature_means added since release
+plot_PC(train_x[range(000, 100), ], pcs, train_y[range(000, 100)], feature_means)#feature_means added since release
 
 
 # # TODO: Use the reconstruct_PC function in features.py to show
