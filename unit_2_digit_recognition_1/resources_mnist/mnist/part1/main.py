@@ -68,20 +68,20 @@ train_x, train_y, test_x, test_y = get_MNIST_data()
 # print('SVM one vs. rest test_error:', run_svm_one_vs_rest_on_MNIST())
 
 
-def run_multiclass_svm_on_MNIST():
-    """
-    Trains svm, classifies test data, computes test error on test set
+# def run_multiclass_svm_on_MNIST():
+#     """
+#     Trains svm, classifies test data, computes test error on test set
 
-    Returns:
-        Test error for the binary svm
-    """
-    train_x, train_y, test_x, test_y = get_MNIST_data()
-    pred_test_y = multi_class_svm(train_x, train_y, test_x)
-    test_error = compute_test_error_svm(test_y, pred_test_y)
-    return test_error
+#     Returns:
+#         Test error for the binary svm
+#     """
+#     train_x, train_y, test_x, test_y = get_MNIST_data()
+#     pred_test_y = multi_class_svm(train_x, train_y, test_x)
+#     test_error = compute_test_error_svm(test_y, pred_test_y)
+#     return test_error
 
 
-print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
+# print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 
 # #######################################################################
 # # 4. Multinomial (Softmax) Regression and Gradient Descent
@@ -90,7 +90,7 @@ print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 # # TODO: first fill out functions in softmax.py, or run_softmax_on_MNIST will not work
 
 
-# def run_softmax_on_MNIST(temp_parameter=1):
+# def run_softmax_on_MNIST(temp_parameter=2):
 #     """
 #     Trains softmax, classifies test data, computes test error, and plots cost function
 
@@ -117,7 +117,7 @@ print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 #     return test_error
 
 
-# #print('softmax test_error=', run_softmax_on_MNIST(temp_parameter=1))
+# print('softmax test_error=', run_softmax_on_MNIST(temp_parameter=0.5))
 
 # # TODO: Find the error rate for temp_parameter = [.5, 1.0, 2.0]
 # #      Remember to return the tempParameter to 1, and re-run run_softmax_on_MNIST
@@ -125,6 +125,35 @@ print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 # #######################################################################
 # # 6. Changing Labels
 # #######################################################################
+def update_y(train_y, test_y):
+    """
+    Changes the old digit labels for the training and test set for the new (mod 3)
+    labels.
+
+    Args:
+        train_y - (n, ) NumPy array containing the labels (a number between 0-9)
+                 for each datapoint in the training set
+        test_y - (n, ) NumPy array containing the labels (a number between 0-9)
+                for each datapoint in the test set
+
+    Returns:
+        train_y_mod3 - (n, ) NumPy array containing the new labels (a number between 0-2)
+                     for each datapoint in the training set
+        test_y_mod3 - (n, ) NumPy array containing the new labels (a number between 0-2)
+                    for each datapoint in the test set
+    """
+    #YOUR CODE HERE
+    train_y_mod3 = train_y % 3
+    test_y_mod3 = test_y % 3
+
+    print("input:", train_y[:10])
+    print("output:", train_y_mod3[:10])
+    
+    return train_y_mod3, test_y_mod3
+
+train_x, train_y, test_x, test_y = get_MNIST_data()
+update_y(train_y, test_y)
+
 
 
 
@@ -134,11 +163,24 @@ print('Multiclass SVM test_error:', run_multiclass_svm_on_MNIST())
 
 #     See run_softmax_on_MNIST for more info.
 #     """
-#     # YOUR CODE HERE
-#     raise NotImplementedError
+#     YOUR CODE HERE
+#     train_x, train_y, test_x, test_y = get_MNIST_data()
+#     mod 3 labelling
+#     train_y = train_y % 3
+#     test_y = test_y % 3
+#     theta, cost_function_history = softmax_regression(train_x, train_y, temp_parameter, alpha=0.3, lambda_factor=1.0e-4, k=3, num_iterations=150)
+#     plot_cost_function_over_time(cost_function_history)
+#     test_error = compute_test_error(test_x, test_y, theta, temp_parameter)
+#     Save the model parameters theta obtained from calling softmax_regression to disk.
+#     write_pickle_data(theta, "./theta.pkl.gz")
+
+#     return test_error
+    
 
 
 # # TODO: Run run_softmax_on_MNIST_mod3(), report the error rate
+
+# print('softmax test_error=', run_softmax_on_MNIST_mod3(temp_parameter=1))
 
 
 # #######################################################################

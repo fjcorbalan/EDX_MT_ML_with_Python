@@ -32,7 +32,19 @@ def compute_probabilities(X, theta, temp_parameter):
         H - (k, n) NumPy array, where each entry H[j][i] is the probability that X[i] is labeled as j
     """
     #YOUR CODE HERE
-    raise NotImplementedError
+    #raw scores (k, n)
+    scores = theta @ X.T / temp_parameter
+    
+    #dealing with numerical or overflow errors
+    scores -= np.max(scores, axis=0)
+    
+    #exp
+    exp_scores = np.exp(scores)
+    
+    #normalising each column to get probabilities
+    H = exp_scores / np.sum(exp_scores, axis=0)
+    
+    return H
 
 def compute_cost_function(X, Y, theta, lambda_factor, temp_parameter):
     """
@@ -51,7 +63,22 @@ def compute_cost_function(X, Y, theta, lambda_factor, temp_parameter):
         c - the cost value (scalar)
     """
     #YOUR CODE HERE
-    raise NotImplementedError
+    n = X.shape[0]
+    k = theta.shape[0]
+    
+    # get probabilities (k, n)
+    H = compute_probabilities(X, theta, temp_parameter)
+    
+    # pick out the probability assigned to the correct label for each datapoint
+    correct_probs = H[Y, np.arange(n)]
+    
+    # cross entropy loss
+    cross_entropy = -np.sum(np.log(correct_probs)) / n
+    
+    # regularization term
+    regularization = (lambda_factor / 2) * np.sum(theta ** 2)
+    
+    return cross_entropy + regularization
 
 def run_gradient_descent_iteration(X, Y, theta, alpha, lambda_factor, temp_parameter):
     """
@@ -71,7 +98,23 @@ def run_gradient_descent_iteration(X, Y, theta, alpha, lambda_factor, temp_param
         theta - (k, d) NumPy array that is the final value of parameters theta
     """
     #YOUR CODE HERE
-    raise NotImplementedError
+    n = X.shape[0]
+    k = theta.shape[0]
+
+    #probabilities
+    H = compute_probabilities(X, theta, temp_parameter)
+
+    #indicator matrix (k, n) — 1 , Y[i] == j, 0 otherwise
+    indicator = np.zeros((k, n))
+    indicator[Y, np.arange(n)] = 1
+
+    #gradient
+    gradient = -1 / (n * temp_parameter) * (indicator - H) @ X + lambda_factor * theta
+
+    #theta update
+    theta = theta - alpha * gradient
+
+    return theta
 
 def update_y(train_y, test_y):
     """
